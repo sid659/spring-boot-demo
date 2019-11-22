@@ -1,5 +1,6 @@
 package com.git.hui.boot.mongo;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.git.hui.boot.mongo.wrapper.MongoReadWrapper;
 import com.git.hui.boot.mongo.wrapper.MongoAddWrapper;
 import com.git.hui.boot.mongo.wrapper.MongoUpdateWrapper;
@@ -53,7 +54,7 @@ public class Application {
         this.mongoReadWrapper.complexQuery();
     }
 
-    private void addDemo() {
+    private void addDemo() throws JsonProcessingException {
         this.mongoAddWrapper.insert();
         this.mongoAddWrapper.insertMany();
         this.mongoAddWrapper.upsertNoMatch();

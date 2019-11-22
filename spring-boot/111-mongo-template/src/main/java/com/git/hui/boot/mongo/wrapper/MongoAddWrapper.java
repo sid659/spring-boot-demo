@@ -2,6 +2,9 @@ package com.git.hui.boot.mongo.wrapper;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.git.hui.boot.mongo.Blog;
 import com.mongodb.client.result.UpdateResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -39,12 +42,15 @@ public class MongoAddWrapper {
                 .findOne(new Query(Criteria.where("name").is("一灰灰blog").and("age").is(28)), JSONObject.class,
                         COLLECTION_NAME);
         System.out.println(ans);
+
+        Blog blog = mongoTemplate.findOne(new Query(Criteria.where("name").is("一灰灰blog")), Blog.class, COLLECTION_NAME);
+        System.out.println(blog);
     }
 
     /**
      * 批量插入
      */
-    public void insertMany() {
+    public void insertMany() throws JsonProcessingException {
         List<Map<String, Object>> records = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             Map<String, Object> record = new HashMap<>(4);
@@ -61,6 +67,9 @@ public class MongoAddWrapper {
         // 查询插入的内容
         List<Map> result =
                 mongoTemplate.find(new Query(Criteria.where("wechart").is("一灰灰blog")), Map.class, COLLECTION_NAME);
+
+        ObjectMapper mapper = new ObjectMapper();
+
         System.out.println("Query Insert Records: " + result);
     }
 
